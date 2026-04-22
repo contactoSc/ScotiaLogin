@@ -2,29 +2,56 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Login Empresa</title>
+  <title>Portal Empresa</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      background: #f4f4f4;
     }
-    .login-container {
-      background: #fff;
+
+    /* Franja superior fija */
+    .top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #d32f2f; /* rojo corporativo */
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+    .top-bar img {
+      height: 40px;
+    }
+    .top-bar .contact-info {
+      font-size: 0.9rem;
+    }
+
+    /* Contenedor principal debajo de la franja */
+    .main-container {
+      display: flex;
+      margin-top: 70px; /* espacio para la franja fija */
+      height: calc(100vh - 70px);
+    }
+
+    .form-side {
+      flex: 1;
       padding: 2rem;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 340px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      background: #fff;
     }
-    .login-container h2 {
+    .form-side h2 {
+      color: #d32f2f;
       text-align: center;
       margin-bottom: 1.5rem;
-      color: #d32f2f; /* rojo corporativo */
     }
     .form-group {
       margin-bottom: 1rem;
@@ -33,6 +60,7 @@
       display: block;
       margin-bottom: 0.5rem;
       font-weight: bold;
+      color: #333;
     }
     .form-group input {
       width: 100%;
@@ -49,6 +77,7 @@
       border-radius: 4px;
       cursor: pointer;
       font-size: 1rem;
+      margin-top: 1rem;
     }
     .btn:hover {
       background: #b71c1c;
@@ -59,27 +88,48 @@
       font-size: 0.9rem;
       color: #555;
     }
+
+    .image-side {
+      flex: 1;
+      background: url("aviso-ggee.jpg") no-repeat center center;
+      background-size: cover;
+    }
   </style>
 </head>
 <body>
-  <div class="login-container">
-    <h2>Portal Empresa</h2>
-    <form id="loginForm">
-      <div class="form-group">
-        <label for="rutEmpresa">RUT Empresa</label>
-        <input type="text" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
-      </div>
-      <div class="form-group">
-        <label for="rutPersona">RUT Usuario</label>
-        <input type="text" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
-      </div>
-      <div class="form-group">
-        <label for="passwd">Clave</label>
-        <input type="password" id="passwd" name="passwd" placeholder="********" required>
-      </div>
-      <button type="submit" class="btn">Ingresar</button>
-    </form>
-    <div class="message" id="message"></div>
+  <!-- Franja superior -->
+  <div class="top-bar">
+    <img src="main/ScotiaLogo.svg" alt="Logo Empresa">
+    <div class="contact-info">
+      📧 contacto@empresa.cl | ☎ +56 2 1234 5678
+    </div>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main-container">
+    <!-- Formulario a la izquierda -->
+    <div class="form-side">
+      <h2>Portal Empresa</h2>
+      <form id="loginForm">
+        <div class="form-group">
+          <label for="rutEmpresa">RUT Empresa</label>
+          <input type="text" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
+        </div>
+        <div class="form-group">
+          <label for="rutPersona">RUT Usuario</label>
+          <input type="text" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
+        </div>
+        <div class="form-group">
+          <label for="passwd">Clave</label>
+          <input type="password" id="passwd" name="passwd" placeholder="********" required>
+        </div>
+        <button type="submit" class="btn">Ingresar</button>
+      </form>
+      <div class="message" id="message"></div>
+    </div>
+
+    <!-- Imagen fija a la derecha -->
+    <div class="image-side"></div>
   </div>
 
   <script>
