@@ -38,6 +38,13 @@
     .extra-link a:hover {
       text-decoration: underline;
     }
+     /* ✅ Ajuste de la imagen para escritorio */
+  @media (min-width: 768px) {
+    .aviso-img {
+      max-width: 70%;  /* ajusta porcentaje según lo que quieras */
+      height: auto;
+    }
+  }
   </style>
 </head>
 <body>
@@ -57,7 +64,7 @@
 
   <!-- Contenido principal -->
   <div class="container mt-5 pt-5">
-    <div class="row align-items-center">
+    <div class="row align-items-start">
       <!-- Formulario -->
       <div class="col-12 col-md-6 mb-4">
         <div class="form-card">
@@ -91,7 +98,7 @@
 
       <!-- Imagen -->
       <div class="col-12 col-md-6 text-center">
-        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow">
+        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow aviso-img">
       </div>
     </div>
   </div>
