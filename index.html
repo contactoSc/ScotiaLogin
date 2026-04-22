@@ -11,8 +11,7 @@
       background: #f4f4f4;
     }
     .top-bar {
-      background: #d32f2f;
-      color: #fff;
+      background: #fff; /* franja superior blanca */
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .top-bar img {
@@ -44,10 +43,15 @@
 <body>
   <!-- Franja superior -->
   <nav class="top-bar navbar navbar-expand-lg fixed-top">
-    <div class="container-fluid justify-content-center">
-      <a class="navbar-brand text-white d-flex align-items-center" href="#">
-        <img src="main/ScotiaLogo.svg" alt="Logo Empresa" class="me-2">
+    <div class="container-fluid">
+      <!-- Logo a la izquierda en escritorio, centrado en móvil -->
+      <a class="navbar-brand mx-auto mx-lg-0" href="#">
+        <img src="main/ScotiaLogo.svg" alt="Logo Empresa">
       </a>
+      <!-- Contacto visible solo en escritorio -->
+      <div class="d-none d-lg-block ms-auto">
+        📧 contacto@empresa.cl | ☎ +56 2 1234 5678
+      </div>
     </div>
   </nav>
 
@@ -112,4 +116,3 @@
   </script>
 </body>
 </html>
-
