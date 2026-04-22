@@ -2,34 +2,101 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Login Empresa Demo</title>
-  <link rel="stylesheet" href="styles.css">
+  <title>Login Empresa</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .login-container {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 340px;
+    }
+    .login-container h2 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      color: #d32f2f; /* rojo corporativo */
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: bold;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .btn {
+      width: 100%;
+      padding: 0.75rem;
+      background: #d32f2f;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+    .btn:hover {
+      background: #b71c1c;
+    }
+    .message {
+      margin-top: 1rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+    }
+  </style>
 </head>
 <body>
   <div class="login-container">
     <h2>Portal Empresa</h2>
     <form id="loginForm">
-      <label for="user">Usuario</label>
-      <input type="text" id="user" name="user" required>
-      <label for="password">Clave</label>
-      <input type="password" id="password" name="password" required>
-      <button type="submit">Ingresar</button>
+      <div class="form-group">
+        <label for="rutEmpresa">RUT Empresa</label>
+        <input type="text" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
+      </div>
+      <div class="form-group">
+        <label for="rutPersona">RUT Usuario</label>
+        <input type="text" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
+      </div>
+      <div class="form-group">
+        <label for="passwd">Clave</label>
+        <input type="password" id="passwd" name="passwd" placeholder="********" required>
+      </div>
+      <button type="submit" class="btn">Ingresar</button>
     </form>
-    <div id="message"></div>
+    <div class="message" id="message"></div>
   </div>
+
   <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
-      const user = document.getElementById('user').value;
-      const password = document.getElementById('password').value;
+      const rutEmpresa = document.getElementById('rutEmpresa').value;
+      const rutPersona = document.getElementById('rutPersona').value;
+      const passwd = document.getElementById('passwd').value;
 
-      const res = await fetch('/api/login', {
+      const res = await fetch('/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user, password })
+        body: JSON.stringify({ rutEmpresa, rutPersona, passwd })
       });
-      const data = await res.json();
-      document.getElementById('message').textContent = data.message;
+
+      const data = await res.text();
+      document.getElementById('message').textContent = data;
     });
   </script>
 </body>
