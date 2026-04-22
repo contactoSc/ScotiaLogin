@@ -38,6 +38,8 @@
       display: flex;
       margin-top: 70px; /* espacio para la franja fija */
       height: calc(100vh - 70px);
+      align-items: center;
+      justify-content: center;
     }
 
     .form-side {
@@ -47,6 +49,7 @@
       flex-direction: column;
       justify-content: center;
       background: #fff;
+      max-width: 400px;
     }
     .form-side h2 {
       color: #d32f2f;
@@ -91,8 +94,14 @@
 
     .image-side {
       flex: 1;
-      background: url("aviso-ggee.jpg") no-repeat center center;
-      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+    }
+    .image-side img {
+      max-width: 100%;
+      height: auto;
     }
   </style>
 </head>
@@ -129,7 +138,9 @@
     </div>
 
     <!-- Imagen fija a la derecha -->
-    <div class="image-side"></div>
+    <div class="image-side">
+      <img src="aviso-ggee.jpg" alt="Aviso Empresa">
+    </div>
   </div>
 
   <script>
