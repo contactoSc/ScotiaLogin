@@ -5,8 +5,13 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Servir frontend desde /public
+// Servir archivos estáticos desde /public
 app.use(express.static(path.join(__dirname, "public")));
+
+// Ruta raíz explícita para index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
