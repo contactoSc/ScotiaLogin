@@ -10,7 +10,7 @@ app.use(express.static(path.join(__dirname, "public")));
 
 // Ruta raíz explícita para index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.resolve(__dirname, "public", "index.html"));
 });
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
