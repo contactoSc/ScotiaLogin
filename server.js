@@ -47,6 +47,7 @@ app.post("/login", async (req, res) => {
     mensaje: "Error al notificar." 
   });
 }
+  });
 
 // Servir index.html por defecto
 app.get("/", (req, res) => {
