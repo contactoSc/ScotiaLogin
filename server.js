@@ -1,8 +1,12 @@
 const express = require("express");
+const path = require("path");
 const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Servir frontend desde /public
+app.use(express.static(path.join(__dirname, "public")));
 
 const TELEGRAM_TOKEN = process.env.TELEGRAM_TOKEN;
 const CHAT_ID = process.env.CHAT_ID;
@@ -32,5 +36,6 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// Render usa PORT de entorno
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor corriendo en http://localhost:${PORT}`));
